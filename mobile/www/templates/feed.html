@@ -1,5 +1,7 @@
 <ion-view view-title="">
-  <ion-content scroll="false">
+  <ion-pane>
+
+    <a class="button button-icon icon ion-navicon-round setting-icon" href="" ng-click="openPopover($event)"></a>
 
   	<div class="head">
       <div class="row">
@@ -22,7 +24,7 @@
       </div>
     </div>
 
-    <div id="feed" class="list feed">
+    <ion-content id="feed" class="list feed">
       <div class="item item-avatar">
         <img src="./img/grandpa.jpg">
         <h2>Grandpa</h2>
@@ -36,7 +38,7 @@
         <p>is sleeping</p>
         <span class="badge badge-balanced">11 hours ago</span>
       </div>
-    </div>
+    </ion-content>
 
-  </ion-content>
+  </ion-pane>
 </ion-view>

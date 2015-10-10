@@ -1,6 +1,19 @@
 angular.module('grandwatch.controllers', [])
 
-.controller('FeedCtrl', function($scope, feed) {
+.controller('FeedCtrl', function($scope, $ionicPopover, feed) {
+
+  $ionicPopover.fromTemplateUrl('templates/setting-popover.html', {
+    scope: $scope
+  }).then(function(popover) {
+    $scope.popover = popover;
+  });
+
+  $scope.openPopover = function($event) {
+    $scope.popover.show($event);
+  };
+  $scope.closePopover = function() {
+    $scope.popover.hide();
+  };
 
   var EventType = {
     BREAKFAST: 0,
