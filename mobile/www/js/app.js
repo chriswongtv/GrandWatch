@@ -1,6 +1,6 @@
-angular.module('grandwatch', ['ionic', 'grandwatch.controllers', 'grandwatch.services'])
+angular.module('grandwatch', ['ionic', 'grandwatch.controllers', 'grandwatch.services', 'ngCordova'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $cordovaStatusbar) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -9,7 +9,9 @@ angular.module('grandwatch', ['ionic', 'grandwatch.controllers', 'grandwatch.ser
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();
+      //StatusBar.overlaysWebView(false);
     }
+    //$cordovaStatusbar.hide();
   });
 })
 
