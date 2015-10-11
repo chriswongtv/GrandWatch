@@ -1,6 +1,6 @@
 angular.module('grandwatch.controllers', [])
 
-.controller('FeedCtrl', function($scope, $ionicPopover, feed) {
+.controller('FeedCtrl', function($scope, $ionicPopover, $ionicModal, feed) {
 
   $ionicPopover.fromTemplateUrl('templates/setting-popover.html', {
     scope: $scope
@@ -14,6 +14,25 @@ angular.module('grandwatch.controllers', [])
   $scope.closePopover = function() {
     $scope.popover.hide();
   };
+
+  $ionicModal.fromTemplateUrl('templates/login.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal
+  })  
+
+  $scope.openModal = function() {
+    $scope.modal.show()
+  }
+
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
 
   var EventType = {
     BREAKFAST: 0,

@@ -1,25 +1,50 @@
+html * {
+	font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+	font-family: 'Open Sans', sans-serif;
+}
+
 .pane {
-	background-image: url("../img/bg2.jpg");
-	background-size: cover;
+	background-color: #247ba0;
 	height: 100%;
+}
+
+.bar-header {
+	background-color: #b2dbbf;
+}
+
+.login-item {
+	padding: 6px 0 5px 0;
+	text-align: center;
+	border-color: #fff;
+	border-bottom-color: #ddd;
+	margin-left: 15px;
+	margin-right: 15px;
+	width: 100% !important;
+}
+
+.login-item input {
+	text-align: center;
 }
 
 .head {
 	padding-top: 12%;
 	padding-bottom: 10%;
-	background-color: #3bceac;
+	background-color: #b2dbbf;
 }
 
 .item-image img {
 	border-radius: 5px;
 }
 
-.active {
+.activity {
 	text-align: center;
 }
 
 .feed {
-	opacity: 0.9;
+	opacity: 0.8;
 }
 
 .setting-icon {
