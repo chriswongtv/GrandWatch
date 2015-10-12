@@ -17,7 +17,7 @@
 					<input type="password" ng-model="password">
 				</label>
 
-				<button class="button icon-left ion-checkmark-circled button-positive next-btn" ng-click="signIn(password)">Sign In</button>	
+				<button class="button icon-left ion-checkmark-circled button-positive next-btn" ng-click="signIn(email, password)">Sign In</button>	
 			</div>
 
 			<div ng-show="isNotUser">
@@ -31,7 +31,7 @@
 					<input type="text" ng-model="name" placeholder="John Doe">
 				</label>
 
-				<button class="button icon-left ion-checkmark-circled button-positive next-btn" ng-click="createAccount(password, name)">Create Account</button>	
+				<button class="button icon-left ion-checkmark-circled button-positive next-btn" ng-click="createAccount(email, password, name)">Create Account</button>	
 			</div>
 
 		</div>

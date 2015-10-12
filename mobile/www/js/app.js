@@ -1,4 +1,4 @@
-angular.module('grandwatch', ['ionic', 'grandwatch.controllers', 'grandwatch.services', 'ngCordova'])
+angular.module('grandwatch', ['ionic', 'grandwatch.controllers', 'grandwatch.services', 'ngCordova', 'firebase'])
 
 .run(function($ionicPlatform, $cordovaStatusbar, $localstorage) {
   $ionicPlatform.ready(function() {

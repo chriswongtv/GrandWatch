@@ -141,9 +141,8 @@ angular.module('grandwatch.controllers', [])
   $scope.checkEmail = function(email) {
     $scope.hide = true;
 
-    if (email == "chris") {
-
-    angular.element(document.querySelector('#login-form')).css('margin-top','20%');
+    if (email == "chris@cogifire.com") {
+      angular.element(document.querySelector('#login-form')).css('margin-top','20%');
       $scope.isUser = true;
     }
     else {
@@ -153,12 +152,35 @@ angular.module('grandwatch.controllers', [])
     }
   }
 
-  $scope.signIn = function(password) {
-    if (password == "pass")
-      $scope.closeModal();
+  $scope.signIn = function(email, password) {
+    var auth = new Firebase("https://grandwatch.firebaseio.com/users");
+    auth.authWithPassword({
+      email    : email,
+      password : password
+    }, function(error, authData) {
+      if (error) {
+        console.log("Login Failed!", error);
+      } else {
+        console.log("Authenticated successfully with payload:", authData);
+        $scope.closeModal();
+      }
+    });
   }
 
-  $scope.createAccount = function(password, name) {
+  $scope.createAccount = function(email, password, name) {
+    var auth = new Firebase("https://grandwatch.firebaseio.com/users");
+    console.log(email + ' ' + password + ' ' + name);
+    auth.createUser({
+      email: email,
+      password: password,
+      name: name
+    }, function(error, userData) {
+      if (error) {
+        console.log("Error creating user:", error);
+      } else {
+        console.log("Successfully created user account with uid:", userData.uid);
+      }
+    });
     $scope.closeModal();
   }
 });

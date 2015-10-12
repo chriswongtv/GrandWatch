@@ -111,4 +111,9 @@ angular.module('grandwatch.services', [])
       return JSON.parse($window.localStorage[key] || '{}');
     }
   }
-}]);
+}])
+
+.factory('auth', function($firebaseAuth) {
+  var firebaseRef = new Firebase("https://grandwatch.firebaseio.com/users");
+  return $firebaseAuth(firebaseRef);
+});
