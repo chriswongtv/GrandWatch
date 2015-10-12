@@ -132,4 +132,31 @@ angular.module('grandwatch.controllers', [])
   };
 //**************PERSON CLASS END**************//
    
+})
+
+.controller('LoginCtrl', function($scope) {
+
+  $scope.checkEmail = function(email) {
+    $scope.hide = true;
+
+    if (email == "chris") {
+
+    angular.element(document.querySelector('#login-form')).css('margin-top','20%');
+      $scope.isUser = true;
+    }
+    else {
+      angular.element(document.getElementById('title')).text("CREATE ACCOUNT");
+      angular.element(document.querySelector('#login-form')).css('margin-top','10%');
+      $scope.isNotUser = true;
+    }
+  }
+
+  $scope.signIn = function(password) {
+    if (password == "pass")
+      $scope.closeModal();
+  }
+
+  $scope.createAccount = function(password, name) {
+    $scope.closeModal();
+  }
 });
