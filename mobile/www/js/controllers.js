@@ -1,6 +1,6 @@
 angular.module('grandwatch.controllers', [])
 
-.controller('FeedCtrl', function($scope, $ionicPopover, $ionicModal, feed) {
+.controller('FeedCtrl', function($scope, $ionicPopover, $ionicModal, $localstorage, feed) {
 
   $ionicPopover.fromTemplateUrl('templates/setting-popover.html', {
     scope: $scope
@@ -20,6 +20,8 @@ angular.module('grandwatch.controllers', [])
     animation: 'slide-in-up'
   }).then(function(modal) {
     $scope.modal = modal
+    if ($localstorage.get('user_id', 'null') == 'null')
+      $scope.modal.show();
   })  
 
   $scope.openModal = function() {
