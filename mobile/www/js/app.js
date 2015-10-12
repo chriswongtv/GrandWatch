@@ -9,9 +9,8 @@ angular.module('grandwatch', ['ionic', 'grandwatch.controllers', 'grandwatch.ser
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();
-      //StatusBar.overlaysWebView(false);
     }
-    //$cordovaStatusbar.hide();
+    cordova.plugins.Keyboard.disableScroll(true);
   });
 })
 

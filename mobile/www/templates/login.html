@@ -1,0 +1,39 @@
+<ion-modal-view ng-controller="LoginCtrl">
+	<ion-header-bar>
+		<h1 id="title" class="title">SIGN IN</h1>
+	</ion-header-bar>
+	<ion-content class="login-page">
+		<div id="login-form" class="list login-form">
+			<label class="item item-input item-stacked-label login-item">
+				<span class="input-label">Email</span>
+				<input type="text" ng-model="email" placeholder="chris@grandwatch.io">
+			</label>
+
+			<button class="button icon-left ion-checkmark-circled button-positive next-btn" ng-click="checkEmail(email)" ng-hide="hide">Next</button>
+
+			<div ng-show="isUser">
+				<label class="item item-input item-stacked-label login-item">
+					<span class="input-label">Password</span>
+					<input type="password" ng-model="password">
+				</label>
+
+				<button class="button icon-left ion-checkmark-circled button-positive next-btn" ng-click="signIn(password)">Sign In</button>	
+			</div>
+
+			<div ng-show="isNotUser">
+				<label class="item item-input item-stacked-label login-item">
+					<span class="input-label">New Password</span>
+					<input type="password" ng-model="password">
+				</label>
+
+				<label class="item item-input item-stacked-label login-item">
+					<span class="input-label">Name</span>
+					<input type="text" ng-model="name" placeholder="John Doe">
+				</label>
+
+				<button class="button icon-left ion-checkmark-circled button-positive next-btn" ng-click="createAccount(password, name)">Create Account</button>	
+			</div>
+
+		</div>
+	</ion-content>
+</ion-modal-view>

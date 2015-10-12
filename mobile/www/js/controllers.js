@@ -1,6 +1,6 @@
 angular.module('grandwatch.controllers', [])
 
-.controller('FeedCtrl', function($scope, $ionicPopover, feed) {
+.controller('FeedCtrl', function($scope, $ionicPopover, $ionicModal, feed) {
 
   $ionicPopover.fromTemplateUrl('templates/setting-popover.html', {
     scope: $scope
@@ -14,6 +14,25 @@ angular.module('grandwatch.controllers', [])
   $scope.closePopover = function() {
     $scope.popover.hide();
   };
+
+  $ionicModal.fromTemplateUrl('templates/login.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal
+  })  
+
+  $scope.openModal = function() {
+    $scope.modal.show()
+  }
+
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
 
   var EventType = {
     BREAKFAST: 0,
@@ -113,4 +132,31 @@ angular.module('grandwatch.controllers', [])
   };
 //**************PERSON CLASS END**************//
    
+})
+
+.controller('LoginCtrl', function($scope) {
+
+  $scope.checkEmail = function(email) {
+    $scope.hide = true;
+
+    if (email == "chris") {
+
+    angular.element(document.querySelector('#login-form')).css('margin-top','20%');
+      $scope.isUser = true;
+    }
+    else {
+      angular.element(document.getElementById('title')).text("CREATE ACCOUNT");
+      angular.element(document.querySelector('#login-form')).css('margin-top','10%');
+      $scope.isNotUser = true;
+    }
+  }
+
+  $scope.signIn = function(password) {
+    if (password == "pass")
+      $scope.closeModal();
+  }
+
+  $scope.createAccount = function(password, name) {
+    $scope.closeModal();
+  }
 });
