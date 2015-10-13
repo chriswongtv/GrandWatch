@@ -1,4 +1,4 @@
-<ion-popover-view class="setting-popover">
+<ion-popover-view class="setting-popover" ng-controller="PopoverCtrl">
 	<ion-content>
 	  <div class="list">
 	  	<a class="item item-icon-left" href="#">
@@ -6,7 +6,7 @@
 	  		Manage Paired Watches
 	  	</a>
 
-	  	<a class="item item-icon-left" href="#">
+	  	<a class="item item-icon-left" href="#" ng-click="logout()">
 	  		<i class="icon ion-log-out"></i>
 	  		Log Out
 	  	</a>

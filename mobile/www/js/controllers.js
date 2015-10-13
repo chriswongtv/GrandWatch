@@ -20,7 +20,7 @@ angular.module('grandwatch.controllers', [])
     animation: 'slide-in-up'
   }).then(function(modal) {
     $scope.modal = modal
-    if ($localstorage.get('user_id', 'null') == 'null')
+    if ($localstorage.get('uid', 'null') == 'null')
       $scope.modal.show();
   })  
 
@@ -136,7 +136,15 @@ angular.module('grandwatch.controllers', [])
    
 })
 
-.controller('LoginCtrl', function($scope) {
+.controller('PopoverCtrl', function($scope, $localstorage) {
+  $scope.logout = function() {
+    $localstorage.set('uid', 'null');
+    $scope.openModal();
+    $scope.closePopover();
+  }
+})
+
+.controller('LoginCtrl', function($scope, $localstorage, $ionicLoading) {
 
   $scope.checkEmail = function(email) {
     $scope.hide = true;
@@ -153,6 +161,7 @@ angular.module('grandwatch.controllers', [])
   }
 
   $scope.signIn = function(email, password) {
+    $ionicLoading.show({template: 'Signing in...'});
     var auth = new Firebase("https://grandwatch.firebaseio.com/users");
     auth.authWithPassword({
       email    : email,
@@ -162,6 +171,8 @@ angular.module('grandwatch.controllers', [])
         console.log("Login Failed!", error);
       } else {
         console.log("Authenticated successfully with payload:", authData);
+        $localstorage.set('uid', authData);
+        $ionicLoading.hide();
         $scope.closeModal();
       }
     });
