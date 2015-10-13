@@ -149,7 +149,7 @@ angular.module('grandwatch.controllers', [])
   // Logout function
   $scope.logout = function() {
     // Establish connection with Firebase
-    var auth = new Firebase("https://grandwatch.firebaseio.com/users")
+    var auth = new Firebase("https://grandwatch.firebaseio.com/users");
     // Unauthenticate from Firebase server
     auth.unauth();
     // Sets UID cookie to 'null'
