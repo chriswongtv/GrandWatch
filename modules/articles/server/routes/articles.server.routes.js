@@ -17,6 +17,11 @@ module.exports = function (app) {
     .get(articles.read)
     .put(articles.update)
     .delete(articles.delete);
+    
+  // accept POST request on the homepage ADDED BY ME
+  app.post('/api/events', function (req, res) {
+    res.send('Got a POST request');
+  });
 
   // Finish by binding the article middleware
   app.param('articleId', articles.articleByID);
