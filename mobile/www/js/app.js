@@ -1,6 +1,6 @@
-angular.module('grandwatch', ['ionic', 'grandwatch.controllers', 'grandwatch.services', 'ngCordova'])
+angular.module('grandwatch', ['ionic', 'grandwatch.controllers', 'grandwatch.services', 'ngCordova', 'firebase'])
 
-.run(function($ionicPlatform, $cordovaStatusbar) {
+.run(function($ionicPlatform, $cordovaStatusbar, $localstorage) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -10,6 +10,7 @@ angular.module('grandwatch', ['ionic', 'grandwatch.controllers', 'grandwatch.ser
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+    // Prevent bouncing upon tapping on input
     cordova.plugins.Keyboard.disableScroll(true);
   });
 })
