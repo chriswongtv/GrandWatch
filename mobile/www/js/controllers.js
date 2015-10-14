@@ -45,6 +45,8 @@ angular.module('grandwatch.controllers', [])
     $scope.modal.remove();
   });
 
+  $scope.feed = [{name: 'Grandpa', picture: './img/grandpa.jpg', action: 'is having breakfast', time: '2 hours ago'},{name: 'Grandma', picture: './img/grandma.jpg', action: 'is sleeping', time: '11 hours ago'}];
+
   var EventType = {
     BREAKFAST: 0,
     LUNCH: 1,
