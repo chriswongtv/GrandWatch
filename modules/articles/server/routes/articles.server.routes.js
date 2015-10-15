@@ -18,10 +18,13 @@ module.exports = function (app) {
     .put(articles.update)
     .delete(articles.delete);
     
-  // accept POST request on the homepage ADDED BY ME
-  app.post('/api/events', function (req, res) {
-    
-    res.send('Got a POST request: '+  JSON.stringify(req.body));
+  // accept POST request ADDED BY ME
+  app.post('/api/v1/events', function (req, res) {
+    var jsonString = JSON.stringify(req.body);
+    res.send('Got a POST request: ' + jsonString);
+    var eventType = JSON.stringify(req.body.EventType);
+    var eventValue = JSON.stringify(req.body.EventValue);
+    var timeStamp = JSON.stringify(req.body.TimeStamp);
   });
 
   // Finish by binding the article middleware
