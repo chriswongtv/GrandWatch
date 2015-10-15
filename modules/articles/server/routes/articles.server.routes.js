@@ -21,7 +21,7 @@ module.exports = function (app) {
   // accept POST request on the homepage ADDED BY ME
   app.post('/api/events', function (req, res) {
     
-    res.send('Got a POST request: '+ req.body);
+    res.send('Got a POST request: '+  JSON.stringify(req.body));
   });
 
   // Finish by binding the article middleware
