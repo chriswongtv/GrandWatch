@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var hub = require('../controllers/articles.server.controller');
+var hub = require('../controllers/hub.server.controller');
 
 module.exports = function (app) {
 
@@ -80,18 +80,4 @@ module.exports = function (app) {
   app.post('/api/v1/event/changeStatus', function (req, res) {
     
   });
-
-  // Articles collection routes
-  app.route('/api/articles').all(articlesPolicy.isAllowed)
-    .get(articles.list)
-    .post(articles.create);
-
-  // Single article routes
-  app.route('/api/articles/:articleId').all(articlesPolicy.isAllowed)
-    .get(articles.read)
-    .put(articles.update)
-    .delete(articles.delete);
-
-  // Finish by binding the article middleware
-  app.param('articleId', articles.articleByID);
 };
