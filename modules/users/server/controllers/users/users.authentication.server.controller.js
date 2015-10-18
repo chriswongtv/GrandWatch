@@ -19,11 +19,8 @@ var noReturnUrls = [
 * Check Email
 */
 exports.checkEmail = function(req, res) {
-  res.send('Got a POST request: ' + req);
-  res.send('Got a POST request: ' + req.email);
-  res.send('Got a POST request: ' + JSON.stringify(req.body));
-  res.send('Got a POST request: ' + JSON.stringify(req.email));
-  User.findOne({ 'email': req.email }, function (err, user) {
+  res.send('Got a POST request: ' + req + ' | ' + req.body.email + ' | ' + JSON.stringify(req.body) + ' | ' + JSON.stringify(req.body.email));
+  User.findOne({ 'email': req.body.email }, function (err, user) {
     if (err) 
       res.send(false);
     else 
