@@ -18,9 +18,9 @@ var noReturnUrls = [
 /**
 * Check Email
 */
-exports.checkEmail = function(req, res) {
+// exports.checkEmail = function(req, res) {
 
-}
+// }
 
 /**
  * Signup
