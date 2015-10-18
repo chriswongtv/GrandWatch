@@ -23,7 +23,7 @@ exports.checkEmail = function(req, res) {
     if (err) 
       res.send(false);
     else 
-      res.send(true);
+      res.send(user);
   });
 };
 
