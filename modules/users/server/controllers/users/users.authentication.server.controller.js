@@ -19,15 +19,14 @@ var noReturnUrls = [
 * Check Email
 */
 exports.checkEmail = function(req, res) {
-  //res.send('Got a POST request: ' + req + ' | ' + req.body.email + ' | ' + JSON.stringify(req.body) + ' | ' + JSON.stringify(req.body.email));
   User.findOne({ 'email': req.body.email }, function (err, user) {
     if (err) 
       res.send(err);
     
-    if (user === '')
-      res.send(false);
-    else
+    if (user)
       res.send(true);
+    else
+      res.send(false);
   });
 };
 
