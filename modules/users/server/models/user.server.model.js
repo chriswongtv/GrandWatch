@@ -28,21 +28,11 @@ var validateLocalStrategyEmail = function (email) {
  * User Schema
  */
 var UserSchema = new Schema({
-  firstName: {
+  name: {
     type: String,
     trim: true,
     default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your first name']
-  },
-  lastName: {
-    type: String,
-    trim: true,
-    default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
-  },
-  displayName: {
-    type: String,
-    trim: true
+    validate: [validateLocalStrategyProperty, 'Please fill in your name']
   },
   email: {
     type: String,
@@ -52,13 +42,6 @@ var UserSchema = new Schema({
     default: '',
     validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
   },
-  username: {
-    type: String,
-    unique: 'Username already exists',
-    required: 'Please fill in a username',
-    lowercase: true,
-    trim: true
-  },
   password: {
     type: String,
     default: ''
@@ -66,16 +49,55 @@ var UserSchema = new Schema({
   salt: {
     type: String
   },
-  profileImageURL: {
-    type: String,
-    default: 'modules/users/client/img/profile/default.png'
+  watch: {
+    type: Boolean,
+    default: false
   },
-  provider: {
-    type: String,
-    required: 'Provider is required'
+  pairedWatch: {
+    watchToken: {
+      type: String
+    },
+    name: {
+      type: String,
+      trim: true,
+      default: '',
+      validate: [validateLocalStrategyProperty, 'Please fill in your name']
+    },
+    profileImageURL: {
+      type: String,
+      default: 'modules/users/client/img/profile/default.png'
+    }
   },
-  providerData: {},
-  additionalProvidersData: {},
+  viewer: {
+    type: Boolean,
+    default: false
+  },
+  pairedWatchAccounts: {
+    uid: {
+      type: String
+    }
+  },
+  sharing: {
+    type: Boolean,
+    default: false
+  },
+  shareTo: {
+    uid: {
+      type: String
+    }
+  },
+  connected: {
+    type: Boolean,
+    default: false
+  },
+  channel: {
+    type: String
+  },
+  session: {
+    token: {
+      type: String
+    }
+  },
   roles: {
     type: [{
       type: String,
