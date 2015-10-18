@@ -25,7 +25,7 @@ exports.checkEmail = function(req, res) {
     else 
       return true;
   });
-}
+};
 
 /**
  * Signup
