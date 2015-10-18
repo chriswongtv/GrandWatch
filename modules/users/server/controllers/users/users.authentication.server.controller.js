@@ -18,9 +18,17 @@ var noReturnUrls = [
 /**
 * Check Email
 */
-// exports.checkEmail = function(req, res) {
-
-// }
+exports.checkEmail = function(req, res) {
+  User.findOne({ 'email': req.body.email }, function (err, user) {
+    if (err) 
+      res.send(err);
+    
+    if (user)
+      res.send(true);
+    else
+      res.send(false);
+  });
+};
 
 /**
  * Signup

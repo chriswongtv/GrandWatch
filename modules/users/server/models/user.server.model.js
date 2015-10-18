@@ -66,6 +66,13 @@ var UserSchema = new Schema({
     profileImageURL: {
       type: String,
       default: 'modules/users/client/img/profile/default.png'
+    },
+    active: {
+      type: Boolean,
+      default: false
+    },
+    expire: {
+      type: Date
     }
   },
   viewer: {

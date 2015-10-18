@@ -11,8 +11,10 @@ module.exports = function (app) {
   require('./users.server.routes.js')(app);
 
   // Users collection routes
+  // app.route('/api/users')
+  //   .get(adminPolicy.isAllowed, admin.list);
   app.route('/api/users')
-    .get(adminPolicy.isAllowed, admin.list);
+    .get(admin.list);
 
   // Single user routes
   app.route('/api/users/:userId')
