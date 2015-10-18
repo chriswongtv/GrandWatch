@@ -20,6 +20,6 @@ module.exports = function (app) {
   app.route('/api/auth/signout').get(users.signout);
 
   // Setting up mobile authentication API
-  app.route('/api/v1/user/auth/checkEmail').post(users.checkEmail);
+  //app.route('/api/v1/user/auth/checkEmail').post(users.checkEmail);
   app.route('/api/v1/user/auth/createAccount').post(users.signup);
 };
