@@ -71,13 +71,13 @@ exports.signInUser = function (req, res, next) {
     if (err) 
       res.send(err);
     
-    if (user && user.password == user.hashPassword(res.body.password)){
+    if (user && user.password === user.hashPassword(res.body.password)){
       res.send(true);
     }
     else
       res.send(false);
   });
-}
+};
 
 /**
  * Signin after passport authentication
