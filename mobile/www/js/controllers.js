@@ -163,23 +163,31 @@ angular.module('grandwatch.controllers', [])
   }
 })
 
-.controller('LoginCtrl', function($scope, $localstorage, $ionicLoading, $ionicPopup) {
+.controller('LoginCtrl', function($scope, $localstorage, $ionicLoading, $ionicPopup, $http) {
   // Check if email exists in database
-  $scope.checkEmail = function(email) {
+  $scope.checkEmail = function(input_email) {
     // Set flag to true 
     $scope.hide = true;
 
-    // If email matches then display password field
-    if (email == "chris@cogifire.com") {
-      angular.element(document.querySelector('#login-form')).css('margin-top','20%');
-      $scope.isUser = true;
-    }
-    else {
-      // Otherwise, display account creation form
-      angular.element(document.getElementById('title')).text("CREATE ACCOUNT");
-      angular.element(document.querySelector('#login-form')).css('margin-top','10%');
-      $scope.isNotUser = true;
-    }
+    $http({
+      method: 'POST',
+      url: 'http://45.33.109.130:3000/api/v1/user/auth/checkEmail',
+      data: { email: input_email }
+    }).then(function successCallback(response) {
+      // If email matches then display password field
+      if (response.data == true) {
+        angular.element(document.querySelector('#login-form')).css('margin-top','20%');
+        $scope.isUser = true;
+      }
+      else {
+        // Otherwise, display account creation form
+        angular.element(document.getElementById('title')).text("CREATE ACCOUNT");
+        angular.element(document.querySelector('#login-form')).css('margin-top','10%');
+        $scope.isNotUser = true;
+      }
+    }, function errorCallback(response) {
+      console.log(JSON.stringify(response));
+    });
   }
 
   // Sign in function
