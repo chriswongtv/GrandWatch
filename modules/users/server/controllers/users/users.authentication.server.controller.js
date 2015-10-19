@@ -64,6 +64,22 @@ exports.signup = function (req, res) {
 };
 
 /**
+ * Signin function by Can Y
+ */
+exports.signInUser = function (req, res, next) {
+   User.findOne({ 'email': req.body.email }, function (err, user) {
+    if (err) 
+      res.send(err);
+    
+    if (user && user.password == user.hashPassword(res.body.password)){
+      res.send(true);
+    }
+    else
+      res.send(false);
+  });
+}
+
+/**
  * Signin after passport authentication
  */
 exports.signin = function (req, res, next) {
