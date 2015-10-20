@@ -21,6 +21,6 @@ module.exports = function (app) {
 
   // Setting up mobile authentication API
   app.route('/api/v1/user/auth/checkEmail').post(users.checkEmail);
-  app.route('/api/v1/user/auth/signIn').post(users.signInUser);
+  app.route('/api/v1/user/auth/signIn').post(users.signin);
   app.route('/api/v1/user/auth/createAccount').post(users.signup);
 };
