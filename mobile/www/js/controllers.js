@@ -164,6 +164,8 @@ angular.module('grandwatch.controllers', [])
 .controller('LoginCtrl', function($scope, $localstorage, $ionicLoading, $ionicPopup, $http) {
   // Check if email exists in database
   $scope.checkEmail = function(input_email) {
+    $ionicLoading.show({template: '<ion-spinner icon="spiral" class="spinner-light"></ion-spinner><br>Loading...'});
+
     // Set flag to true 
     $scope.hide = true;
 
@@ -177,15 +179,19 @@ angular.module('grandwatch.controllers', [])
         angular.element(document.querySelector('#login-form')).css('margin-top','20%');
         $scope.isUser = true;
       }
-      else {
+      else if (response.data == false) {
         // Otherwise, display account creation form
         angular.element(document.getElementById('title')).text("CREATE ACCOUNT");
         angular.element(document.querySelector('#login-form')).css('margin-top','10%');
         $scope.isNotUser = true;
       }
+      else
+        $scope.hide = false;
     }, function errorCallback(response) {
       console.log(JSON.stringify(response));
     });
+
+    $ionicLoading.hide();
   }
 
   // Sign in function
@@ -222,6 +228,8 @@ angular.module('grandwatch.controllers', [])
 
   // Account creation function
   $scope.createAccount = function(input_email, input_password, input_name) {
+    $ionicLoading.show({template: '<ion-spinner icon="spiral" class="spinner-light"></ion-spinner><br>Creating account...'});
+    
     // Attempt to create user in database from user's input
     $http({
       method: 'POST',
@@ -236,5 +244,7 @@ angular.module('grandwatch.controllers', [])
       else
         console.log("Error creating user:", error);
     })
+
+    $ionicLoading.hide();
   }
 });
