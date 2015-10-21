@@ -1,35 +1,40 @@
 <ion-view view-title="GrandWatch">
 
-    <a class="button button-icon icon ion-more setting-icon" href="" ng-click="openPopover($event)"></a>
+  <ion-header-bar>
+    <h1 id="title" class="title">FEED</h1>
+    <button class="button button-icon icon ion-more" ng-click="openPopover($event)"></button>
+  </ion-header-bar>  
 
-  	<div class="head">
-      <div class="row">
-        <div class="col col-25 col-offset-25">
-          <div class="item-image">
-            <img src="./img/grandpa.jpg">
-          </div>
-          <div class="padding-top active activity">
-            <span id="activity-one" class="badge badge-royal">Idle</span>
-          </div>
+  <!-- <a class="button button-icon icon ion-more setting-icon" href="" ng-click="openPopover($event)"></a> -->
+
+	<div class="head">
+    <div class="row">
+      <div class="col col-25 col-offset-25">
+        <div class="item-image">
+          <img src="./img/grandpa.jpg">
         </div>
-        <div class="col col-25">
-          <div class="item-image">
-            <img src="./img/grandma.jpg">
-          </div>
-          <div class="padding-top active activity">
-            <span id="activity-two" class="badge badge-royal">Idle</span>
-          </div>
+        <div class="padding-top active activity">
+          <span id="activity-one" class="badge badge-royal">Idle</span>
+        </div>
+      </div>
+      <div class="col col-25">
+        <div class="item-image">
+          <img src="./img/grandma.jpg">
+        </div>
+        <div class="padding-top active activity">
+          <span id="activity-two" class="badge badge-royal">Idle</span>
         </div>
       </div>
     </div>
+  </div>
 
-    <ion-scroll style="height: 100%" id="feed" class="list feed">
-      <div class="item item-avatar" ng-repeat="x in feed">
-        <img src={{x.picture}}>
-        <h2>{{x.name}}</h2>
-        <p>{{x.action}}</p>
-        <span class="badge badge-balanced">{{x.time}}</span>
-      </div>
-    </ion-scroll>
+  <ion-scroll style="height: 100%" id="feed" class="list feed">
+    <div class="item item-avatar" ng-repeat="x in feed">
+      <img src={{x.picture}}>
+      <h2>{{x.name}}</h2>
+      <p>{{x.action}}</p>
+      <span class="badge badge-balanced">{{x.time}}</span>
+    </div>
+  </ion-scroll>
 
 </ion-view>
