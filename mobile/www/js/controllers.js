@@ -2,6 +2,8 @@ angular.module('grandwatch.controllers', [])
 
 .controller('FeedCtrl', function($scope, $ionicPopover, $ionicModal, $localstorage, feed) {
 
+  $scope.api = 'http://45.33.109.130:3000';
+
   // Initialize "Setting" popover page
   $ionicPopover.fromTemplateUrl('templates/setting-popover.html', {
     scope: $scope
@@ -150,10 +152,6 @@ angular.module('grandwatch.controllers', [])
 .controller('PopoverCtrl', function($scope, $localstorage) {
   // Logout function
   $scope.logout = function() {
-    // Establish connection with Firebase
-    var auth = new Firebase("https://grandwatch.firebaseio.com/users");
-    // Unauthenticate from Firebase server
-    auth.unauth();
     // Sets UID cookie to 'null'
     $localstorage.set('uid', 'null');
     // Displays login modal
@@ -163,37 +161,59 @@ angular.module('grandwatch.controllers', [])
   }
 })
 
-.controller('LoginCtrl', function($scope, $localstorage, $ionicLoading, $ionicPopup) {
+.controller('LoginCtrl', function($scope, $localstorage, $ionicLoading, $ionicPopup, $http) {
   // Check if email exists in database
-  $scope.checkEmail = function(email) {
+  $scope.checkEmail = function(input_email) {
+    $ionicLoading.show({template: '<ion-spinner icon="spiral" class="spinner-light"></ion-spinner><br>Loading...'});
+
     // Set flag to true 
     $scope.hide = true;
 
-    // If email matches then display password field
-    if (email == "chris@cogifire.com") {
-      angular.element(document.querySelector('#login-form')).css('margin-top','20%');
-      $scope.isUser = true;
-    }
-    else {
-      // Otherwise, display account creation form
-      angular.element(document.getElementById('title')).text("CREATE ACCOUNT");
-      angular.element(document.querySelector('#login-form')).css('margin-top','10%');
-      $scope.isNotUser = true;
-    }
+    $http({
+      method: 'POST',
+      url: $scope.api + '/api/v1/user/auth/checkEmail',
+      data: { email: input_email }
+    }).then(function successCallback(response) {
+      // If email matches then display password field
+      if (response.data == true) {
+        angular.element(document.querySelector('#login-form')).css('margin-top','20%');
+        $scope.isUser = true;
+      }
+      else if (response.data == false) {
+        // Otherwise, display account creation form
+        angular.element(document.getElementById('title')).text("CREATE ACCOUNT");
+        angular.element(document.querySelector('#login-form')).css('margin-top','10%');
+        $scope.isNotUser = true;
+      }
+      else
+        $scope.hide = false;
+    }, function errorCallback(response) {
+      console.log(JSON.stringify(response));
+    });
+
+    $ionicLoading.hide();
   }
 
   // Sign in function
-  $scope.signIn = function(email, password) {
+  $scope.signIn = function(input_email, input_password) {
     // Displays loading spinner
     $ionicLoading.show({template: '<ion-spinner icon="spiral" class="spinner-light"></ion-spinner><br>Signing in...'});
-    // Establish connection with Firebase
-    var auth = new Firebase("https://grandwatch.firebaseio.com/users");
-    // Authenticate with user input
-    auth.authWithPassword({
-      email    : email,
-      password : password
-    }, function(error, authData) {
-      if (error) {
+    
+    $http({
+      method: 'POST',
+      url: $scope.api + '/api/v1/user/auth/signIn',
+      data: { email: input_email, password: input_password }
+    }).then(function successCallback(response) {
+      if (response.data.success == 'true') {
+        console.log('Login successful. UID: ' + response.data.uid);
+        // If login successful, store the UID returned from database
+        $localstorage.set('uid', response.data.uid);
+        // Closes the loading spinner
+        $ionicLoading.hide();
+        // Closes the login modal
+        $scope.closeModal();
+      }
+      else {
         // If login failed, display popup with error message
         console.log("Login Failed!", error);
         var errorPopup = $ionicPopup.alert({
@@ -202,36 +222,29 @@ angular.module('grandwatch.controllers', [])
         });
         // Closes the loading spinner
         $ionicLoading.hide();
-      } else {
-        console.log("Authenticated successfully with payload:", authData);
-        // If login successful, store the UID returned from database
-        $localstorage.set('uid', authData);
-        // Closes the loading spinner
-        $ionicLoading.hide();
-        // Closes the login modal
-        $scope.closeModal();
       }
-    });
+    })
   }
 
   // Account creation function
-  $scope.createAccount = function(email, password, name) {
-    // Establish connection with Firebase
-    var auth = new Firebase("https://grandwatch.firebaseio.com/users");
-    console.log(email + ' ' + password + ' ' + name);
+  $scope.createAccount = function(input_email, input_password, input_name) {
+    $ionicLoading.show({template: '<ion-spinner icon="spiral" class="spinner-light"></ion-spinner><br>Creating account...'});
+    
     // Attempt to create user in database from user's input
-    auth.createUser({
-      email: email,
-      password: password,
-      name: name
-    }, function(error, userData) {
-      if (error) {
-        console.log("Error creating user:", error);
-      } else {
+    $http({
+      method: 'POST',
+      url: $scope.api + '/api/v1/user/auth/createAccount',
+      data: { email: input_email, password: input_password, name: input_name }
+    }).then(function successCallback(response) {
+      if (response.data.success == 'true') {
         console.log("Successfully created user account with uid:", userData.uid);
         // If account creation successful, close login modal
         $scope.closeModal();
       }
-    });
+      else
+        console.log("Error creating user:", error);
+    })
+
+    $ionicLoading.hide();
   }
 });
