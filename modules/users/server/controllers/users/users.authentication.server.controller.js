@@ -72,11 +72,10 @@ exports.signInUser = function (req, res, next) {
       res.send(err);
     
     if ( user && user.authenticate(req.body.password) ){
-      //var jsonresponse = JSON.parse("{'success' : 'true', 'uid' : '"+user.name+"'}");
-      res.send(true);
+      res.send({ success: 'true', uid: user._id });
     }
     else
-      res.send(false);
+      res.send({ success: 'false' });
   });
 };
 
