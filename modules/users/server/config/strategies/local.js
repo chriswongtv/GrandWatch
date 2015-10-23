@@ -10,19 +10,19 @@ var passport = require('passport'),
 module.exports = function () {
   // Use local strategy
   passport.use(new LocalStrategy({
-      emailField: 'email',
+      usernameField: 'email',
       passwordField: 'password'
     },
-    function (email, password, done) {
+    function (username, password, done) {
       User.findOne({
-        email: email.toLowerCase()
+        email: username.toLowerCase()
       }, function (err, user) {
         if (err) {
           return done(err);
         }
         if (!user || !user.authenticate(password)) {
           return done(null, false, {
-            message: 'Invalid email or password'
+            message: 'Invalid username or password'
           });
         }
 
