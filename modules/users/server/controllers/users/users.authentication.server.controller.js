@@ -26,7 +26,7 @@ exports.checkEmail = function(req, res) {
     if (user)
       res.send(true);
     else
-      res.send(false);
+      res.send(user);
   });
 };
 
