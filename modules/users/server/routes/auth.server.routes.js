@@ -19,6 +19,9 @@ module.exports = function (app) {
   app.route('/api/auth/signin').post(users.signin);
   app.route('/api/auth/signout').get(users.signout);
 
+//passport.js sign in
+  app.route('/api/v1/user/auth/passportsignin').post(users.signin);
+
   // Setting up mobile authentication API
   app.route('/api/v1/user/auth/checkEmail').post(users.checkEmail);
   app.route('/api/v1/user/auth/signIn').post(users.signInUser);

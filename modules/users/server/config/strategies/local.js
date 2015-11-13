@@ -10,7 +10,7 @@ var passport = require('passport'),
 module.exports = function () {
   // Use local strategy
   passport.use(new LocalStrategy({
-      emailField: 'email',
+      usernameField: 'email',
       passwordField: 'password'
     },
     function (email, password, done) {
@@ -31,6 +31,7 @@ module.exports = function () {
     }
   ));
 };
+
 
 /* Original Code
 module.exports = function () {

@@ -26,7 +26,7 @@ exports.checkEmail = function(req, res) {
     if (user)
       res.send(true);
     else
-      res.send(user);
+      res.send(false);
   });
 };
 
@@ -96,7 +96,7 @@ exports.signin = function (req, res, next) {
         if (err) {
           res.status(400).send(err);
         } else {
-          res.json(user);
+          res.json({success: 'true', uid: user._id, token: 'aSecureToken'});
         }
       });
     }
