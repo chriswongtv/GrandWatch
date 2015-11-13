@@ -75,7 +75,7 @@ exports.signInUser = function (req, res, next) {
       res.send({ success: 'true', uid: user._id });
     }
     else
-      res.send({ success: 'false' });
+      res.send({ success: 'false', debug: user.email });
   });
 };
 
