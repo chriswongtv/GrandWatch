@@ -175,6 +175,17 @@ UserSchema.methods.authenticate = function (password) {
 };
 
 /**
+ * generate a session token
+ */
+UserSchema.methods.generateSessionToken = function (pKey, deviceId) {
+  var time = '999';
+  var hmac = crypto.createHmac('sha512', pKey);
+  var oToken = crypto.update(time + this.email + deviceId).digest('base64');
+  this.session.token = oToken;
+  return oToken;
+};
+
+/**
  * Find possible not used username
  */
 UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
