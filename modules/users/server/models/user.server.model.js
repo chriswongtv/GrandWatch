@@ -180,7 +180,7 @@ UserSchema.methods.authenticate = function (password) {
 UserSchema.methods.generateSessionToken = function (pKey, deviceId) {
   var time = '999';
   var hmac = crypto.createHmac('sha512', pKey);
-  var oToken = crypto.update(time + this.email + deviceId).digest('base64');
+  var oToken = hmac.update(time + this.email + deviceId).digest('base64');
   this.session.token = oToken;
   return oToken;
 };

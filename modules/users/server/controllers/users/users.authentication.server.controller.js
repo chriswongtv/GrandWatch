@@ -96,7 +96,8 @@ exports.signin = function (req, res, next) {
         if (err) {
           res.status(400).send(err);
         } else {
-          res.json({success: 'true', uid: user._id, token: 'aSecureToken'});
+          var tkn = user.generateSessionToken('s8d7f6s986d98sd6f8sdf896','789');
+          res.json({success: 'true', uid: user._id, token: tkn/*'aSuperSecureToken'*/});
         }
       });
     }
