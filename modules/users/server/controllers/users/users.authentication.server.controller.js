@@ -56,7 +56,9 @@ exports.signup = function (req, res) {
         if (err) {
           res.status(400).send(err);
         } else {
-          res.json(user);
+          //res.json(user);
+          var tkn = user.generateSessionToken('s8d7f6s986d98sd6f8sdf896','789');
+          res.send({success: true, uid: user._id, token: tkn, user: user});
         }
       });
     }
@@ -73,7 +75,7 @@ exports.signInUser = function (req, res, next) {
     
     if ( user && user.authenticate(req.body.password) ){
       //var jsonresponse = JSON.parse("{'success' : 'true', 'uid' : '"+user.name+"'}");
-      res.send(true);
+      res.send({sucess: 'true', data: user});
     }
     else
       res.send(false);

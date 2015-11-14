@@ -178,7 +178,8 @@ UserSchema.methods.authenticate = function (password) {
  * generate a session token
  */
 UserSchema.methods.generateSessionToken = function (pKey, deviceId) {
-  var time = '999';
+  var date = new Date();
+  var time = date.toISOString();
   var hmac = crypto.createHmac('sha512', pKey);
   var oToken = hmac.update(time + this.email + deviceId).digest('base64');
   this.session.token = oToken;
