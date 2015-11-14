@@ -31,6 +31,26 @@ exports.checkEmail = function(req, res) {
 };
 
 /**
+*Terminate account
+*/
+exports.terminate = function(req, res) {
+  User.findOne({ 'email': req.body.email }, function (err, user) {
+    if (err) 
+      res.send(err);
+    
+    if (user){
+      user.remove();/*
+      user.save(function(err) {
+        if (err) throw err;
+      });*/
+      res.send({status: 'Terminated!'});
+    }
+    else
+      res.send(false);
+  });
+};
+
+/**
  * Signup
  */
 exports.signup = function (req, res) {
