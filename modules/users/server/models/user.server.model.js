@@ -182,10 +182,10 @@ UserSchema.methods.generateSessionToken = function (pKey, deviceId) {
   var time = date.toISOString();
   var hmac = crypto.createHmac('sha512', pKey);
   var oToken = hmac.update(time + this.email + deviceId).digest('base64');
-  /*this.session.token = undefined;
+  this.session.token = oToken;
   this.save(function(err) {
     if (err) throw err;
-  });*/
+  });
   return oToken;
 };
 

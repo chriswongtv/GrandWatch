@@ -24,7 +24,7 @@ exports.checkEmail = function(req, res) {
       res.send(err);
     
     if (user)
-      res.send(true);
+      res.send(user);
     else
       res.send(false);
   });
@@ -69,8 +69,8 @@ exports.signup = function (req, res) {
       });
     } else {
       // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
+      //user2.password = undefined;
+      //user2.salt = undefined;
 
       req.login(user, function (err) {
         if (err) {
@@ -78,6 +78,8 @@ exports.signup = function (req, res) {
         } else {
           //res.json(user);
           var tkn = user.generateSessionToken('s8d7f6s986d98sd6f8sdf896','789');
+          //user.password = undefined;
+          //user.salt = undefined;
           res.send({success: true, uid: user._id, token: tkn, user: user});
         }
       });
@@ -111,14 +113,17 @@ exports.signin = function (req, res, next) {
       res.status(400).send(info);
     } else {
       // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
+      //user.password = undefined;
+      //user.salt = undefined;
 
       req.login(user, function (err) {
         if (err) {
           res.status(400).send(err);
         } else {
           var tkn = user.generateSessionToken('s8d7f6s986d98sd6f8sdf896','789');
+          
+          //user.password = undefined;
+          //user.salt = undefined;
           res.json({success: 'true', uid: user._id, token: tkn/*'aSuperSecureToken'*/});
         }
       });
