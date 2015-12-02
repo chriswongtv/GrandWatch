@@ -80,7 +80,7 @@ exports.signup = function (req, res) {
           var tkn = user.generateSessionToken('s8d7f6s986d98sd6f8sdf896','789');
           //user.password = undefined;
           //user.salt = undefined;
-          res.send({success: true, uid: user._id, token: tkn, user: user});
+          res.send({success: true, uid: user._id, token: tkn});
         }
       });
     }
@@ -136,7 +136,18 @@ exports.signin = function (req, res, next) {
  */
 exports.signout = function (req, res) {
   req.logout();
-  res.redirect('/');
+  User.findOne({ '_id': req.body.uid }, function (err, user) {
+    if (err) 
+      res.send(err);
+    
+    if ( user && user.verifySessionToken(req.body.token) ){
+      user.clearSessionToken();
+      res.send({sucess: 'true'});
+    }
+    else
+      res.send({sucess: 'false'});
+  });
+  //res.redirect('/');
 };
 
 /**

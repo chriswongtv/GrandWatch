@@ -175,6 +175,23 @@ UserSchema.methods.authenticate = function (password) {
 };
 
 /**
+ * Create instance method for verifying a valid token
+ */
+UserSchema.methods.verifySessionToken = function (token) {
+  return this.session.token === token;
+};
+
+/**
+ * clear session token
+ */
+UserSchema.methods.clearSessionToken = function () {
+  this.session.token = undefined;
+  this.save(function(err) {
+    if (err) throw err;
+  });
+};
+
+/**
  * generate a session token
  */
 UserSchema.methods.generateSessionToken = function (pKey, deviceId) {

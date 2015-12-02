@@ -27,4 +27,5 @@ module.exports = function (app) {
   app.route('/api/v1/user/auth/signIn').post(users.signInUser);
   app.route('/api/v1/user/auth/createAccount').post(users.signup);
   app.route('/api/v1/user/auth/terminate').post(users.terminate);
+  app.route('/api/v1/user/auth/signOut').post(users.signout);
 };
